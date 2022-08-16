@@ -39,8 +39,8 @@ def index(request):
 @api_view(["POST"])
 def prediction(request):
     try:
-        credential = AzureNamedKeyCredential("vladimirstoragethesis", "XdyCazpFWpyUs+iuKkS2yD4GZ+8GaAram/ltSwv2C8uG/hi7dvVKcFE9F3uGaqcbB7tAYWdUgIgY+AStxuPnQQ==")
-        service = TableServiceClient(endpoint="https://vladimirstoragethesis.table.core.windows.net/", credential=credential)
+        credential = AzureNamedKeyCredential("STORAGENAME", "ACESS KEY")
+        service = TableServiceClient(endpoint="https://STORAGENAME.table.core.windows.net/", credential=credential)
         string = request.data
         string = "".join(string.values())
         scores_list = []
@@ -68,17 +68,17 @@ def prediction(request):
             summ_of_scores = sum(scores_list)
             average_score = summ_of_scores/length_of_list
 
-            table_service_client = TableServiceClient.from_connection_string(conn_str="DefaultEndpointsProtocol=https;AccountName=vladimirstoragethesis;AccountKey=XdyCazpFWpyUs+iuKkS2yD4GZ+8GaAram/ltSwv2C8uG/hi7dvVKcFE9F3uGaqcbB7tAYWdUgIgY+AStxuPnQQ==;EndpointSuffix=core.windows.net")
+            table_service_client = TableServiceClient.from_connection_string(conn_str="CONNECTION STRING")
             #table_name = "scoreresults"
             #table_client = table_service_client.create_table(table_name=table_name)
 
             time = str(datetime.datetime.now())
             id = str(uuid.uuid4())
             
-            blob = BlobClient.from_connection_string(conn_str="DefaultEndpointsProtocol=https;AccountName=vladimirstoragethesis;AccountKey=XdyCazpFWpyUs+iuKkS2yD4GZ+8GaAram/ltSwv2C8uG/hi7dvVKcFE9F3uGaqcbB7tAYWdUgIgY+AStxuPnQQ==;EndpointSuffix=core.windows.net", container_name="imagestorage", blob_name=id)
+            blob = BlobClient.from_connection_string(conn_str="CONNECTION STRING", container_name="NAME OF THE CONTAINER", blob_name=id)
             blob.upload_blob(string)
 
-            base64string = 'https://myaccount.blob.core.windows.net/imagestorage/' + 'id'
+            base64string = 'https://myaccount.blob.core.windows.net/NAMEOF THE BLOB/' + 'id'
             
             my_entity = {
                 u'PartitionKey':id,
@@ -86,8 +86,8 @@ def prediction(request):
                 u'Average_Score': average_score,
                 u'Base64': base64string
             }
-            table_service_client = TableServiceClient.from_connection_string(conn_str="DefaultEndpointsProtocol=https;AccountName=vladimirstoragethesis;AccountKey=XdyCazpFWpyUs+iuKkS2yD4GZ+8GaAram/ltSwv2C8uG/hi7dvVKcFE9F3uGaqcbB7tAYWdUgIgY+AStxuPnQQ==;EndpointSuffix=core.windows.net")
-            table_client = table_service_client.get_table_client(table_name="scoreresults")
+            table_service_client = TableServiceClient.from_connection_string(conn_str="CONNECTION STRING")
+            table_client = table_service_client.get_table_client(table_name="TABLE NAME")
             table_client.create_entity(entity=my_entity)
 
 
