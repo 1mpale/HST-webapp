@@ -1,3 +1,0 @@
-azure_storage_connectionstring: "DefaultEndpointsProtocol=https;AccountName=vladimirstoragethesis;AccountKey=XdyCazpFWpyUs+iuKkS2yD4GZ+8GaAram/ltSwv2C8uG/hi7dvVKcFE9F3uGaqcbB7tAYWdUgIgY+AStxuPnQQ==;EndpointSuffix=core.windows.net"
-image_container_name: "visualizationimages"
-source_folder: "/Users/vladimirpain/Documents/django-docker"

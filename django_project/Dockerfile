@@ -2,11 +2,8 @@ FROM python:3.8-slim-buster
 
 ENV PYTHONUNBUFFERED 1
 
-RUN pip install pyyaml
-
 COPY . .
 COPY download_from_azure.py ./download_from_azure.py
-COPY uploadconfig.yaml ./uploadconfig.yaml
 COPY ./requirements.txt /requirements.txt
 COPY data_preparation.py ./data_preparation.py
 COPY model_training.py ./model_training.py
