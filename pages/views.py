@@ -194,3 +194,5 @@ def visualization(request):
     
  
     return HttpResponse(image_data, content_type="image/png")  
+
+
